@@ -7,6 +7,7 @@ defmodule PhxGenSld.MixProject do
     [
       app: :phx_gen_sld,
       version: @version,
+      description: "A SOLID generator for Phoenix 1.6 applications",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
