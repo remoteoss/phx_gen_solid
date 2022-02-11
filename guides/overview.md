@@ -2,7 +2,7 @@
 
 > Still early in development & subject to change
 
-`mix phx.gen.sld` exists to generate the boilerplate usually required when
+`mix phx.gen.solid` exists to generate the boilerplate usually required when
 utilizing the SOLID principles, outlined below, in a larger phoenix project.
 By default it provides fairly general templates for each of the handlers,
 services, finders, and values. However, all of the templates are completely
@@ -10,10 +10,10 @@ overrideable.
 
 ## Currently Supported Generators
 
-- `Mix.Tasks.Phx.Gen.Sld.Value` - used to generate a value
-- `Mix.Tasks.Phx.Gen.Sld.Handler` - TODO
-- `Mix.Tasks.Phx.Gen.Sld.Service` - TODO
-- `Mix.Tasks.Phx.Gen.Sld.Finder` - TODO
+- `Mix.Tasks.Phx.Gen.Solid.Value` - used to generate a value
+- `Mix.Tasks.Phx.Gen.Solid.Handler` - TODO
+- `Mix.Tasks.Phx.Gen.Solid.Service` - TODO
+- `Mix.Tasks.Phx.Gen.Solid.Finder` - TODO
 
 ## SOLID Principles
 
@@ -188,7 +188,7 @@ intermediate objects, etc.
 
 Below is an example of a value that builds a user object to be used in a JSON
 response. Note this utilizes the helper functions generated with
-`Mix.Tasks.Phx.Gen.Sld.Value`.
+`Mix.Tasks.Phx.Gen.Solid.Value`.
 
 ```elixir
 defmodule Remoteoss.Accounts.Value.User do

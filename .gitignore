@@ -20,7 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-phx_gen_sld-*.tar
+phx_gen_solid-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/

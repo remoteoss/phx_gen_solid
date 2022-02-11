@@ -1,10 +1,10 @@
-defmodule Mix.Tasks.Phx.Gen.Sld.Value do
+defmodule Mix.Tasks.Phx.Gen.Solid.Value do
   @shortdoc "Generates Value logic for a resource"
 
   @moduledoc """
   Generates Value logic for a resource.
 
-      mix phx.gen.sld.value Accounts User users id name age
+      mix phx.gen.solid.value Accounts User users id name age
 
   The first argument is the context module followed by the schema module and its
   plural name.
@@ -35,7 +35,7 @@ defmodule Mix.Tasks.Phx.Gen.Sld.Value do
   @impl true
   def run(args) do
     if Mix.Project.umbrella?() do
-      Mix.raise("mix phx.gen.sld can only be run inside an application directory")
+      Mix.raise("mix phx.gen.solid can only be run inside an application directory")
     end
 
     {opts, parsed} = OptionParser.parse!(args, strict: @switches)
@@ -91,9 +91,9 @@ defmodule Mix.Tasks.Phx.Gen.Sld.Value do
   # The paths to look for template files for generators.
   #
   # Defaults to checking the current app's `priv` directory and falls back to
-  # phx_gen_sld's `priv` directory.
+  # phx_gen_solid's `priv` directory.
   defp generator_paths do
-    [".", :phx_gen_sld, :phoenix]
+    [".", :phx_gen_solid, :phoenix]
   end
 
   defp prompt_for_conflicts(context, opts) do
@@ -128,7 +128,7 @@ defmodule Mix.Tasks.Phx.Gen.Sld.Value do
   defp copy_new_files(%Context{} = context, binding, paths) do
     opts = Keyword.get(binding, :opts)
     files = files_to_be_generated(context, opts)
-    Mix.Phoenix.copy_from(paths, "priv/templates/phx.gen.sld", binding, files)
+    Mix.Phoenix.copy_from(paths, "priv/templates/phx.gen.solid", binding, files)
 
     context
   end

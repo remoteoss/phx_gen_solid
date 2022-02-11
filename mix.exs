@@ -1,11 +1,11 @@
-defmodule PhxGenSld.MixProject do
+defmodule PhxGenSolid.MixProject do
   use Mix.Project
 
   @version "0.1.0"
 
   def project do
     [
-      app: :phx_gen_sld,
+      app: :phx_gen_solid,
       version: @version,
       description: "A SOLID generator for Phoenix 1.6 applications",
       elixir: "~> 1.13",
@@ -37,7 +37,7 @@ defmodule PhxGenSld.MixProject do
     [
       main: "overview",
       source_ref: "v#{@version}",
-      source_url: "https://github.com/remoteoss/phx_gen_sld",
+      source_url: "https://github.com/remoteoss/phx_gen_solid",
       assets: "assets",
       extras: extras()
     ]
@@ -51,7 +51,7 @@ defmodule PhxGenSld.MixProject do
     [
       maintainers: ["Kramer Hampton"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/remoteoss/phx_gen_sld"}
+      links: %{"GitHub" => "https://github.com/remoteoss/phx_gen_solid"}
     ]
   end
 end
