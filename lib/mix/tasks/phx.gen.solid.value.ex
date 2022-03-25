@@ -60,11 +60,8 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
     ]
 
     paths = generator_paths()
-
     prompt_for_conflicts(context, opts)
-
-    context
-    |> copy_new_files(binding, paths)
+    copy_new_files(context, binding, paths)
   end
 
   defp build_value_context(context, opts) do
