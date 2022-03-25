@@ -12,7 +12,7 @@ overrideable.
 
 - `Mix.Tasks.Phx.Gen.Solid.Value` - used to generate a value
 - `Mix.Tasks.Phx.Gen.Solid.Handler` - TODO
-- `Mix.Tasks.Phx.Gen.Solid.Service` - TODO
+- `Mix.Tasks.Phx.Gen.Solid.Service` - used to generate C~~R~~UD services
 - `Mix.Tasks.Phx.Gen.Solid.Finder` - TODO
 
 ## SOLID Principles

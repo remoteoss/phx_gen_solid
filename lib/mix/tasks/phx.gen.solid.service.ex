@@ -1,5 +1,21 @@
 defmodule Mix.Tasks.Phx.Gen.Solid.Service do
-  @shortdoc "Generates CRUD services for a resource"
+  @shortdoc "Generates C~~R~~UD services for a resource"
+
+  @moduledoc """
+  Generates C~~R~~UD Services for a resource.
+
+      mix phx.gen.solid.value Accounts User users 
+
+  The first argument is the context module followed by the schema module and its
+  plural name.
+
+  This creates the following services: 
+  - `MyApp.Accounts.Service.CreateUser`
+  - `MyApp.Accounts.Service.UpdateUser`
+  - `MyApp.Accounts.Service.DeleteUser`
+
+  For more information about the generated Services, see the [Overview](overview.html).
+  """
 
   use Mix.Task
 
@@ -25,12 +41,9 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
       opts: opts,
       schema: schema,
       web_app_name: Generator.web_app_name(context),
-      service_create_module:
-        Module.concat([
-          context.base_module,
-          "#{inspect(context.alias)}",
-          "Create#{inspect(schema.alias)}"
-        ])
+      service_create_module: build_cud_module_name(context, schema, "Create"),
+      service_update_module: build_cud_module_name(context, schema, "Update"),
+      service_delete_module: build_cud_module_name(context, schema, "Delete")
     ]
 
     paths = Generator.paths()
@@ -41,7 +54,20 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
   defp files_to_be_generated(%Context{schema: schema} = context) do
     [
       {:eex, "service_create.ex",
-       Path.join([context.dir, "services", "create_#{schema.singular}.ex"])}
+       Path.join([context.dir, "services", "create_#{schema.singular}.ex"])},
+      {:eex, "service_update.ex",
+       Path.join([context.dir, "services", "update_#{schema.singular}.ex"])},
+      {:eex, "service_delete.ex",
+       Path.join([context.dir, "services", "delete_#{schema.singular}.ex"])}
     ]
+  end
+
+  defp build_cud_module_name(context, schema, action) do
+    Module.concat([
+      context.base_module,
+      "#{inspect(context.alias)}",
+      "Service",
+      "#{action}#{inspect(schema.alias)}"
+    ])
   end
 end
