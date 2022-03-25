@@ -5,6 +5,7 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
 
   alias Mix.Phoenix.Context
   alias Mix.Tasks.Phx.Gen
+  alias PhxGenSolid.Generator
 
   @switches []
 
@@ -23,7 +24,7 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
       context: context,
       opts: opts,
       schema: schema,
-      web_app_name: web_app_name(context),
+      web_app_name: Generator.web_app_name(context),
       service_create_module:
         Module.concat([
           context.base_module,
@@ -32,29 +33,9 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
         ])
     ]
 
-    paths = generator_paths()
-    prompt_for_conflicts(context)
-    copy_new_files(context, binding, paths)
-  end
-
-  # The paths to look for template files for generators.
-  #
-  # Defaults to checking the current app's `priv` directory and falls back to
-  # phx_gen_solid's `priv` directory.
-  defp generator_paths do
-    [".", :phx_gen_solid, :phoenix]
-  end
-
-  defp web_app_name(%Context{} = context) do
-    context.web_module
-    |> inspect()
-    |> Phoenix.Naming.underscore()
-  end
-
-  defp prompt_for_conflicts(context) do
-    context
-    |> files_to_be_generated()
-    |> Mix.Phoenix.prompt_for_conflicts()
+    paths = Generator.paths()
+    Generator.prompt_for_conflicts(context, &files_to_be_generated/1)
+    Generator.copy_new_files(context, binding, paths, &files_to_be_generated/1)
   end
 
   defp files_to_be_generated(%Context{schema: schema} = context) do
@@ -62,12 +43,5 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
       {:eex, "service_create.ex",
        Path.join([context.dir, "services", "create_#{schema.singular}.ex"])}
     ]
-  end
-
-  defp copy_new_files(%Context{} = context, binding, paths) do
-    files = files_to_be_generated(context)
-    Mix.Phoenix.copy_from(paths, "priv/templates/phx.gen.solid", binding, files)
-
-    context
   end
 end

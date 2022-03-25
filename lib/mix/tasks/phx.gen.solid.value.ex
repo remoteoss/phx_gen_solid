@@ -29,6 +29,7 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
 
   alias Mix.Phoenix.Context
   alias Mix.Tasks.Phx.Gen
+  alias PhxGenSolid.Generator
 
   @switches [helpers: :boolean, value_context: :string]
 
@@ -47,7 +48,7 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
       context: context,
       opts: opts,
       schema: schema,
-      web_app_name: web_app_name(context),
+      web_app_name: Generator.web_app_name(context),
       value_context: build_value_context(context, opts),
       value_fields: build_value_fields(schema.attrs),
       value_module:
@@ -59,9 +60,9 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
         ])
     ]
 
-    paths = generator_paths()
-    prompt_for_conflicts(context, opts)
-    copy_new_files(context, binding, paths)
+    paths = Generator.paths()
+    Generator.prompt_for_conflicts(context, &files_to_be_generated/2, opts)
+    Generator.copy_new_files(context, binding, paths, &files_to_be_generated/2, opts)
   end
 
   defp build_value_context(context, opts) do
@@ -77,26 +78,6 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
       false ->
         default_context
     end
-  end
-
-  defp web_app_name(%Context{} = context) do
-    context.web_module
-    |> inspect()
-    |> Phoenix.Naming.underscore()
-  end
-
-  # The paths to look for template files for generators.
-  #
-  # Defaults to checking the current app's `priv` directory and falls back to
-  # phx_gen_solid's `priv` directory.
-  defp generator_paths do
-    [".", :phx_gen_solid, :phoenix]
-  end
-
-  defp prompt_for_conflicts(context, opts) do
-    context
-    |> files_to_be_generated(opts)
-    |> Mix.Phoenix.prompt_for_conflicts()
   end
 
   defp files_to_be_generated(%Context{schema: schema} = context, opts) do
@@ -121,14 +102,6 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
 
   defp maybe_gen_helpers(base_files, helpers, true), do: Enum.concat(base_files, helpers)
   defp maybe_gen_helpers(base_files, _helpers, false), do: base_files
-
-  defp copy_new_files(%Context{} = context, binding, paths) do
-    opts = Keyword.get(binding, :opts)
-    files = files_to_be_generated(context, opts)
-    Mix.Phoenix.copy_from(paths, "priv/templates/phx.gen.solid", binding, files)
-
-    context
-  end
 
   defp build_value_fields(attrs) do
     Keyword.keys(attrs)
