@@ -24,7 +24,7 @@ After running `mix phx.new`, `cd` into your application's directory (ex. `my_app
    ```elixir
    def deps do
      [
-       {:phx_gen_solid, "~> 0.1", only: [:dev], runtime: false}
+       {:phx_gen_solid, "~> 0.3", only: [:dev], runtime: false}
        ...
      ]
    end
@@ -64,11 +64,21 @@ To override the name of the module where the helpers exist:
 This will override the name used in the generated value to alias the module
 given.
 
-#### mix phx.gen.solid.handler
-
-TODO
-
 #### mix phx.gen.solid.service
+
+Generates C~~R~~UD Services for a resource.
+
+    $ mix phx.gen.solid.service Accounts User users id slug name
+
+The first argument is the context module followed by the schema module and its
+plural name.
+
+This creates the following services:
+- `MyApp.Accounts.Service.CreateUser`
+- `MyApp.Accounts.Service.UpdateUser`
+- `MyApp.Accounts.Service.DeleteUser`
+
+#### mix phx.gen.solid.handler
 
 TODO
 

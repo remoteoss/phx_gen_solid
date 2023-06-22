@@ -4,12 +4,12 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
   @moduledoc """
   Generates C~~R~~UD Services for a resource.
 
-      mix phx.gen.solid.value Accounts User users 
+      mix phx.gen.solid.service Accounts User users
 
   The first argument is the context module followed by the schema module and its
   plural name.
 
-  This creates the following services: 
+  This creates the following services:
   - `MyApp.Accounts.Service.CreateUser`
   - `MyApp.Accounts.Service.UpdateUser`
   - `MyApp.Accounts.Service.DeleteUser`
@@ -50,6 +50,8 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Service do
     Generator.prompt_for_conflicts(context, &files_to_be_generated/1)
     Generator.copy_new_files(context, binding, paths, &files_to_be_generated/1)
   end
+
+  def raise_with_help(msg), do: Generator.raise_with_help(msg)
 
   defp files_to_be_generated(%Context{schema: schema} = context) do
     [
