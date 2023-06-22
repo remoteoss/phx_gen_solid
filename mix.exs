@@ -1,13 +1,13 @@
 defmodule PhxGenSolid.MixProject do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.3.0"
 
   def project do
     [
       app: :phx_gen_solid,
       version: @version,
-      description: "A SOLID generator for Phoenix 1.6 applications",
+      description: "A SOLID generator for Phoenix 1.7 applications",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -26,10 +26,10 @@ defmodule PhxGenSolid.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:phoenix, "~> 1.6.2"},
-      {:phx_new, "~> 1.6.6", only: [:dev, :test]},
+      {:phoenix, "~> 1.7.6"},
+      {:phx_new, "~> 1.7.6", only: [:dev, :test]},
       # Docs
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.29.4", only: :dev, runtime: false}
     ]
   end
 

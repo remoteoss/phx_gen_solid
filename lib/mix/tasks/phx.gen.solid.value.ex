@@ -65,6 +65,8 @@ defmodule Mix.Tasks.Phx.Gen.Solid.Value do
     Generator.copy_new_files(context, binding, paths, &files_to_be_generated/2, opts)
   end
 
+  def raise_with_help(msg), do: Generator.raise_with_help(msg)
+
   defp build_value_context(context, opts) do
     default_context = Module.concat([context.base_module, "Value"])
 

@@ -40,4 +40,22 @@ defmodule PhxGenSolid.Generator do
     |> files_fn.(opts)
     |> Mix.Phoenix.prompt_for_conflicts()
   end
+
+  def raise_with_help(msg) do
+    Mix.raise("""
+    #{msg}
+
+    mix phx.gen.solid.service and phx.gen.solid.value expect a context module
+    name, followed by a singular and plural name of the generated resource,
+    ending with any number of attributes.
+    For example:
+
+    mix phx.gen.solid.service Accounts User users name:string
+    mix phx.gen.solid.value Accounts User users name:string
+
+    The context serves as the API boundary for the given resource. Multiple
+    resources may belong to a context and a resource may be split over distinct
+    contexts (such as Accounts.User and Payments.User).
+    """)
+  end
 end

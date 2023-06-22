@@ -5,11 +5,11 @@ defmodule <%= inspect service_delete_module %> do
 
   alias <%= inspect context.module %>
 
-  def call(params) do 
+  def call(params) do
     params
     |> <%= inspect context.alias %>.delete_<%= schema.singular %>(params)
     |> handle_result()
-  end 
-  
+  end
+
   defp handle_result(result), do: result
 end
