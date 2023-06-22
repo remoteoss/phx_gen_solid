@@ -12,18 +12,6 @@ defmodule MixHelper do
     len |> :crypto.strong_rand_bytes() |> Base.encode64() |> binary_part(0, len)
   end
 
-  def in_tmp(which, function) do
-    path = Path.join([tmp_path(), random_string(10), to_string(which)])
-
-    try do
-      File.rm_rf!(path)
-      File.mkdir_p!(path)
-      File.cd!(path, function)
-    after
-      File.rm_rf!(path)
-    end
-  end
-
   def in_tmp_project(which, function) do
     path_root_folder = Path.join([tmp_path(), random_string(10)])
     path = Path.join([path_root_folder, to_string(which)])
